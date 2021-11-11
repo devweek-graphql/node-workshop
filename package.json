@@ -12,7 +12,9 @@
   "dependencies": {
     "apollo-datasource": "^3.3.0",
     "apollo-datasource-rest": "^3.4.0",
+    "apollo-log": "^1.1.0",
     "apollo-server": "^3.4.0",
+    "dataloader": "^2.0.0",
     "graphql": "^16.0.1",
     "lodash": "^4.17.21",
     "nodemon": "^2.0.14"

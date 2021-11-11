@@ -1,12 +1,13 @@
 const dateScalar = require('./scalars/date');
+const _filter = require('lodash/filter');
 
-const _ = require('lodash');
+const { performanceLogger } = require('./helpers');
 
 const resolvers = {
 
     Date: dateScalar,
     Query: {
-
+ 
         company: (parent, args, { dataSources }, info) => {
             return dataSources.spacexAPI.getCompanyInfo();
         },
@@ -20,19 +21,19 @@ const resolvers = {
         },
         
         launches: (parent, args, { dataSources }, info) => {
-            return dataSources.spacexAPI.getLaunches();
+            return performanceLogger(() => dataSources.spacexAPI.getLaunches(), `Query.launches resolver`);
         },
 
     },
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {
-            return dataSources.spacexAPI.getRocketById(launch.rocket);
+            return performanceLogger(() => dataSources.loaders.rockets().load(launch.rocket), `Launch.rocket resolver`);
         }
     },
     Rocket: {
         launches: async (rocket, args, { dataSources }, info) => {
             const launches =  await dataSources.spacexAPI.getLaunches();
-            return _.filter(launches, {rocket: rocket.id});
+            return _filter(launches, {rocket: rocket.id});
         }
     }
 
