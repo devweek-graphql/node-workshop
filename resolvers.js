@@ -24,7 +24,8 @@ const resolvers = {
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {
             console.log('Resolver - Launch.rocket -');
-            return dataSources.loaders.rockets().load(launch.rocket);
+            // return dataSources.loaders.rockets().load(launch.rocket);
+            return dataSources.spacexAPI.getRocketById(launch.rocket);
         }
     },
     Rocket: {
