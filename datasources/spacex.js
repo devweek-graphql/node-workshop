@@ -1,5 +1,13 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
-const { performanceLogger } = require('../helpers');
+
+const performanceLogger = async (fn, tag) => {
+    const t0 = performance.now();
+    const something = await fn();
+    const t1 = performance.now();
+    console.log();
+    console.log(`${tag} took: ${Math.trunc(t1 - t0)}ms`);
+    return something;
+}
 class SpacexAPI extends RESTDataSource {
 
     constructor(){

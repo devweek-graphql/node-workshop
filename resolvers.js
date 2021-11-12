@@ -1,13 +1,9 @@
 const dateScalar = require('./scalars/date');
 const _filter = require('lodash/filter');
 
-const { performanceLogger } = require('./helpers');
-
 const resolvers = {
-
     Date: dateScalar,
     Query: {
- 
         company: (parent, args, { dataSources }, info) => {
             return dataSources.spacexAPI.getCompanyInfo();
         },
@@ -21,13 +17,14 @@ const resolvers = {
         },
         
         launches: (parent, args, { dataSources }, info) => {
-            return performanceLogger(() => dataSources.spacexAPI.getLaunches(), `Query.launches resolver`);
+            console.log('Resolver - Query.launches -');
+            return dataSources.spacexAPI.getLaunches();
         },
-
     },
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {
-            return performanceLogger(() => dataSources.loaders.rockets().load(launch.rocket), `Launch.rocket resolver`);
+            console.log('Resolver - Launch.rocket -');
+            return dataSources.loaders.rockets().load(launch.rocket);
         }
     },
     Rocket: {
@@ -36,7 +33,6 @@ const resolvers = {
             return _filter(launches, {rocket: rocket.id});
         }
     }
-
 }
 
 module.exports = resolvers;
