@@ -5,21 +5,18 @@ module.exports = `
     }
 
     type Info {
+        name: String
+        founder: String
+        founded: Int
         ceo: String
         coo: String
-        cto_propulsion: String
         cto: String
+        cto_propulsion: String
         employees: Int
-        founded: Int
-        founder: String
-        headquarters: Address
-        launch_sites: Int
-        links: InfoLinks
-        name: String
-        summary: String
-        test_sites: Int
         valuation: Float
-        vehicles: Int
+        summary: String
+        headquarters: Address
+        links: InfoLinks
     }
 
     type InfoLinks {

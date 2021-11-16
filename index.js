@@ -1,7 +1,7 @@
 const { ApolloServer } = require('apollo-server');
 
 const typeDefs = require('./squema/global') ;
-const resolvers = require('./resolvers') ;
+const resolvers = require('./resolvers/resolvers') ;
 const SpacexAPI = require('./datasources/spacex');
 const { rocketsLoader } = require('./datasources/loaders');
 

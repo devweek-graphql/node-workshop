@@ -7,18 +7,18 @@ const resolvers = {
         company: (parent, args, { dataSources }, info) => {
             return dataSources.spacexAPI.getCompanyInfo();
         },
-
         rockets: (parent, args, { dataSources }, info) => {
             return dataSources.spacexAPI.getRockets();
         },
-
         rocket: (parent, {id}, { dataSources }, info) => {
             return dataSources.spacexAPI.getRocketById(id);
         },
-        
         launches: (parent, args, { dataSources }, info) => {
             console.log('Resolver - Query.launches -');
             return dataSources.spacexAPI.getLaunches();
+        },
+        launch: (parent, {id}, { dataSources }, info) => {
+            return dataSources.spacexAPI.getLaunchById(id);
         },
     },
     Launch: {
