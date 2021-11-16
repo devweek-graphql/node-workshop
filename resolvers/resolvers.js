@@ -1,4 +1,4 @@
-const dateScalar = require('./scalars/date');
+const dateScalar = require('../scalars/date');
 
 const _ = require('lodash');
 

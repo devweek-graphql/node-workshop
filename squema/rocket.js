@@ -4,12 +4,10 @@ module.exports = `
     rocket(id:ID): Rocket
   }
 
-  type RocketsResult {
-    result: Result
-    data: [Rocket]
-  }
-
   type Rocket {
+    id: ID
+    name: String
+    launches: [Launch]
     active: Boolean
     boosters: Int
     company: String
@@ -20,17 +18,14 @@ module.exports = `
     engines: RocketEngines
     first_stage: RocketFirstStage
     height: Distance
-    id: ID
     landing_legs: RocketLandingLegs
     mass: Mass
-    name: String
     payload_weights: [RocketPayloadWeight]
     second_stage: RocketSecondStage
     stages: Int
     success_rate_pct: Int
     type: String
     wikipedia: String
-    launches: [Launch]
   }
 
   type RocketPayloadWeight {
