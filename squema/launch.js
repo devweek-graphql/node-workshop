@@ -17,7 +17,7 @@ type Query {
     name: String
     flight_number: Int
     success: Boolean
-    date_utc: Date
+    date_utc: String
     date_unix: Int
     details: String
     links: LaunchLinks

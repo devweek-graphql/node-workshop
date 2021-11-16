@@ -16,7 +16,7 @@ module.exports = `
     country: String
     wikipedia: String
     description: String
-    flickr_images: flickrImages
+    flickr_images: [String]
     launches: [Launch]
     company: String
     diameter: Distance
@@ -24,10 +24,6 @@ module.exports = `
     landing_legs: RocketLandingLegs
     mass: Mass
     stages: Int
-  }
-
-  type flickrImages{
-    type: [String]
   }
 
   type RocketLandingLegs {

@@ -23,6 +23,10 @@ const resolvers = {
             return dataSources.spacexAPI.getLaunches();
         },
 
+        launch: (parent, {id}, { dataSources }, info) => {
+            return dataSources.spacexAPI.getLaunchById(id);
+        },
+
     },
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {

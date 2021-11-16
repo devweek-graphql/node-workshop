@@ -27,6 +27,11 @@ class SpacexAPI extends RESTDataSource {
         return data;
     }
 
+    async getLaunchById(id){
+        const data = await this.get(`/launches/${id}`);
+        return data;
+    }
+
 }
 
 module.exports = SpacexAPI;
