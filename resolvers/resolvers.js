@@ -1,4 +1,4 @@
-const dateScalar = require('./scalars/date');
+const dateScalar = require('../scalars/date');
 const _filter = require('lodash/filter');
 
 const resolvers = {
@@ -8,10 +8,10 @@ const resolvers = {
             return dataSources.spacexAPI.getCompanyInfo();
         },
         rockets: (parent, args, { dataSources }, info) => {
-            return dataSources.spacexAPI.getRockets();
+            return dataSources.rocketsRepository.getAll();
         },
         rocket: (parent, {id}, { dataSources }, info) => {
-            return dataSources.spacexAPI.getRocketById(id);
+            return dataSources.rocketsRepository.getById(id);
         },
         launches: (parent, args, { dataSources }, info) => {
             console.log('Resolver - Query.launches -');
@@ -24,8 +24,8 @@ const resolvers = {
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {
             console.log('Resolver - Launch.rocket -');
-            // return dataSources.loaders.rockets().load(launch.rocket);
-            return dataSources.spacexAPI.getRocketById(launch.rocket);
+            return dataSources.loaders.rockets().load(launch.rocket);
+            // return dataSources.rocketsRepository.getById(launch.rocket);
         }
     },
     Rocket: {
