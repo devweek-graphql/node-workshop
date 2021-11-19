@@ -13,7 +13,6 @@ const resolvers = {
             return dataSources.rocketsRepository.getById(id);
         },
         launches: (parent, args, { dataSources }, info) => {
-            console.log('Resolver - Query.launches -');
             return dataSources.spacexAPI.getLaunches();
         },
         launch: (parent, {id}, { dataSources }, info) => {
@@ -21,15 +20,13 @@ const resolvers = {
         },
     },
     Launch: {
-        rocket: (launch, args, { dataSources: { loaders } }, info) => {
-            console.log('Resolver - Launch.rocket -');
-            return loaders.rockets.load(launch.rocket);
+        rocket: (launch, args, { dataSources }, info) => {
+            return dataSources.rocketsRepository.getById(launch.rocket);
         }
     },
     Rocket: {
-        launches: async (rocket, args, { dataSources: { loaders } }, info) => {
-            console.log('Resolver - Rocket.launches -');
-            return loaders.launchesByRocket.load(rocket.id);
+        launches: async (rocket, args, { dataSources }, info) => {
+            return dataSources.spacexAPI.getLaunchesByRocketId(rocket.id);
         }
     }
 }

@@ -1,12 +1,5 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
-const performanceLogger = async (fn, tag) => {
-    const t0 = performance.now();
-    const something = await fn();
-    const t1 = performance.now();
-    console.log(`API Call - ${tag} took: ${Math.trunc(t1 - t0)}ms -`);
-    return something;
-}
 class SpacexAPI extends RESTDataSource {
 
     constructor(){
@@ -20,7 +13,7 @@ class SpacexAPI extends RESTDataSource {
     }
 
     async getLaunches(){
-        const data = await performanceLogger(() => this.get(`/launches`), 'SpacexAPI.getLaunches API call');
+        const data = await this.get(`/launches`);
         return data;
     }
 
@@ -29,23 +22,23 @@ class SpacexAPI extends RESTDataSource {
         return data;
     }
 
-    async getLaunchByRocketId(id){
-        const { docs } = await performanceLogger(() => this.post(`/launches/query`, {
+    async getLaunchesByRocketId(id){
+        const { docs } = await this.post(`/launches/query`, {
             query: {
                 rocket: id
             }
-        }), 'SpacexAPI.getLaunchByRocketId API call');
+        });
         return docs;
     }
 
     async getLaunchesByRocketIds(ids){
-        const { docs } = await performanceLogger(() => this.post(`/launches/query`, {
+        const { docs } = await this.post(`/launches/query`, {
             query: {
                 rocket: {
                   $in: ids
                 }
               }
-        }), 'SpacexAPI.getLaunchesByRocketIds API call');
+        });
         return docs;
     }
 
