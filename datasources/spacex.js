@@ -46,8 +46,7 @@ class SpacexAPI extends RESTDataSource {
                 }
               }
         }), 'SpacexAPI.getLaunchesByRocketIds API call');
-        const data = ids.map(id => docs.filter( launche => launche.rocket === id));
-        return data;
+        return docs;
     }
 
 }

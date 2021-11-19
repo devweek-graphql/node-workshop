@@ -22,15 +22,15 @@ const resolvers = {
         },
     },
     Launch: {
-        rocket: (launch, args, { dataSources }, info) => {
+        rocket: (launch, args, { dataSources: { loaders } }, info) => {
             console.log('Resolver - Launch.rocket -');
-            return dataSources.loaders.rockets().load(launch.rocket);
+            return loaders.rockets.load(launch.rocket);
         }
     },
     Rocket: {
-        launches: async (rocket, args, { dataSources }, info) => {
+        launches: async (rocket, args, { dataSources: { loaders } }, info) => {
             console.log('Resolver - Rocket.launches -');
-            return dataSources.loaders.launchesByRocket().load(rocket.id);
+            return loaders.launchesByRocket.load(rocket.id);
         }
     }
 }
