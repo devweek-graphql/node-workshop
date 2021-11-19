@@ -1,8 +1,8 @@
-const performanceLogger = async (fn, tag) => {
+const performanceLogger = async (fn, query) => {
     const t0 = performance.now();
     const something = await fn();
     const t1 = performance.now();
-    console.log(`DB - ${tag} took: ${Math.trunc(t1 - t0)}ms -`);
+    console.log(`DB - ${query} - took: ${Math.trunc(t1 - t0)}ms -`);
     return something;
 }
 
@@ -29,21 +29,21 @@ class RocketRepository {
     async getById(id) {
         const result = await performanceLogger(
             () => this.rocketsDB.get(`SELECT * FROM rockets WHERE id = ?`,[id])
-            ,'getById');
+            ,`SELECT * FROM rockets WHERE id = ${id}`);
         return JSON.parse(result.rocket);
     }
 
     async getAll() {
         const results = await performanceLogger(
             () => this.rocketsDB.all(`SELECT * FROM rockets`)
-            ,'getAll');
+            ,'SELECT * FROM rockets');
         return results.map(dataset => JSON.parse(dataset.rocket));
     }
 
     async getByIds(ids) {
         const results = await performanceLogger(
             () => this.rocketsDB.all(`SELECT * FROM rockets WHERE id IN (${ids.map(id => '?').join(',')})`, ids)
-            ,'getByIds');
+            ,`SELECT * FROM rockets WHERE id IN (${ids.map(id => id).join(',')})`);
         return results.map(dataset => JSON.parse(dataset.rocket));
     }
 }
