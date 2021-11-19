@@ -1,5 +1,4 @@
 const dateScalar = require('../scalars/date');
-const _filter = require('lodash/filter');
 
 const resolvers = {
     Date: dateScalar,
