@@ -17,7 +17,6 @@ module.exports = `
     wikipedia: String
     description: String
     flickr_images: [String]
-    launches: [Launch]
     company: String
     diameter: Distance
     height: Distance
