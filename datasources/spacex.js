@@ -29,7 +29,7 @@ class SpacexAPI extends RESTDataSource {
         return data;
     }
 
-    async getLaunchByRocketId(id){
+    async getLaunchesByRocketId(id){
         const { docs } = await performanceLogger(() => this.post(`/launches/query`, {
             query: {
                 rocket: id

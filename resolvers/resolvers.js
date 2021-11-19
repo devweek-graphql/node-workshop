@@ -21,15 +21,15 @@ const resolvers = {
         },
     },
     Launch: {
-        rocket: (launch, args, { dataSources: { loaders } }, info) => {
+        rocket: (launch, args, { dataSources }, info) => {
             console.log('Resolver - Launch.rocket -');
-            return loaders.rockets.load(launch.rocket);
+            return dataSources.rocketsRepository.getById(launch.rocket);
         }
     },
     Rocket: {
-        launches: async (rocket, args, { dataSources: { loaders } }, info) => {
+        launches: async (rocket, args, { dataSources }, info) => {
             console.log('Resolver - Rocket.launches -');
-            return loaders.launchesByRocket.load(rocket.id);
+            return dataSources.spacexAPI.getLaunchesByRocketId(rocket.id);
         }
     }
 }
