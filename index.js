@@ -4,7 +4,7 @@ const { DAO, RocketRepository } = require('./datasources/rockets');
 const typeDefs = require('./squema/global') ;
 const resolvers = require('./resolvers/resolvers') ;
 const SpacexAPI = require('./datasources/spacex');
-const { rocketsLoader } = require('./datasources/loaders');
+const { rocketsLoader, launchesByRocketLoader } = require('./datasources/loaders');
 
 const spacexAPI = new SpacexAPI();
 
@@ -15,7 +15,8 @@ const dataSources = () => ({
     spacexAPI,
     rocketsRepository,
     loaders: {
-        rockets: rocketsLoader(rocketsRepository)
+        rockets: rocketsLoader(rocketsRepository),
+        launchesByRocket: launchesByRocketLoader(spacexAPI),
     },
 });
 

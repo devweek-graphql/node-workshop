@@ -29,6 +29,27 @@ class SpacexAPI extends RESTDataSource {
         return data;
     }
 
+    async getLaunchByRocketId(id){
+        const { docs } = await performanceLogger(() => this.post(`/launches/query`, {
+            query: {
+                rocket: id
+            }
+        }), 'SpacexAPI.getLaunchByRocketId API call');
+        return docs;
+    }
+
+    async getLaunchesByRocketIds(ids){
+        const { docs } = await performanceLogger(() => this.post(`/launches/query`, {
+            query: {
+                rocket: {
+                  $in: ids
+                }
+              }
+        }), 'SpacexAPI.getLaunchesByRocketIds API call');
+        const data = ids.map(id => docs.filter( launche => launche.rocket === id));
+        return data;
+    }
+
 }
 
 module.exports = SpacexAPI;

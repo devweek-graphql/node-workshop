@@ -6,6 +6,12 @@ const rocketsLoader = (rocketsRepository) => {
   return () => loader;
 }
 
+const launchesByRocketLoader = (launchesRepository) => {
+  const loader = new DataLoader(ids => launchesRepository.getLaunchesByRocketIds(ids));
+  return () => loader;
+}
+
 module.exports = {
   rocketsLoader,
+  launchesByRocketLoader
 };

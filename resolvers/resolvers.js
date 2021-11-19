@@ -25,13 +25,12 @@ const resolvers = {
         rocket: (launch, args, { dataSources }, info) => {
             console.log('Resolver - Launch.rocket -');
             return dataSources.loaders.rockets().load(launch.rocket);
-            // return dataSources.rocketsRepository.getById(launch.rocket);
         }
     },
     Rocket: {
         launches: async (rocket, args, { dataSources }, info) => {
-            const launches =  await dataSources.spacexAPI.getLaunches();
-            return _filter(launches, {rocket: rocket.id});
+            console.log('Resolver - Rocket.launches -');
+            return dataSources.loaders.launchesByRocket().load(rocket.id);
         }
     }
 }
