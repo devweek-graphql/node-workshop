@@ -6,8 +6,6 @@ const launchTypes = require('./launch');
 
 module.exports = gql`
 
-    scalar Date
-
     ${commonTypes}
 
     ${companyTypes}
