@@ -8,8 +8,6 @@ class DataBase {
         this.db = new sqlite3.Database(file, (err) => {
             if (err) {
                 console.log('Could not connect to database', err)
-            } else {
-                console.log('Connected to database')
             }
         })
     }

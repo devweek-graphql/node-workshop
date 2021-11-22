@@ -1,6 +1,7 @@
+const { DataBase } = require('./database');
 class RocketRepository {
-    constructor(rocketsDB) {
-        this.rocketsDB = rocketsDB
+    constructor() {
+        this.rocketsDB = new DataBase('./rockets.db');
     }
 
     createTable() {
