@@ -1,14 +1,8 @@
-const performanceLogger = async (fn, query) => {
-    const t0 = performance.now();
-    const something = await fn();
-    const t1 = performance.now();
-    console.log(`DB - ${query} - took: ${Math.trunc(t1 - t0)}ms -`);
-    return something;
-}
+const { DataBase } = require('./database');
 
 class RocketRepository {
-    constructor(rocketsDB) {
-        this.rocketsDB = rocketsDB
+    constructor() {
+        this.rocketsDB = new DataBase('./rockets.db');
     }
 
     createTable() {
@@ -27,23 +21,17 @@ class RocketRepository {
     }
 
     async getById(id) {
-        const result = await performanceLogger(
-            () => this.rocketsDB.get(`SELECT * FROM rockets WHERE id = ?`,[id])
-            ,`SELECT * FROM rockets WHERE id = ${id}`);
+        const result = await this.rocketsDB.get(`SELECT * FROM rockets WHERE id = ?`,[id]);
         return JSON.parse(result.rocket);
     }
 
     async getAll() {
-        const results = await performanceLogger(
-            () => this.rocketsDB.all(`SELECT * FROM rockets`)
-            ,'SELECT * FROM rockets');
+        const results = await this.rocketsDB.all(`SELECT * FROM rockets`);
         return results.map(dataset => JSON.parse(dataset.rocket));
     }
 
     async getByIds(ids) {
-        const results = await performanceLogger(
-            () => this.rocketsDB.all(`SELECT * FROM rockets WHERE id IN (${ids.map(id => '?').join(',')})`, ids)
-            ,`SELECT * FROM rockets WHERE id IN (${ids.map(id => id).join(',')})`);
+        const results = await this.rocketsDB.all(`SELECT * FROM rockets WHERE id IN (${ids.map(id => '?').join(',')})`, ids);
         return results.map(dataset => JSON.parse(dataset.rocket));
     }
 }

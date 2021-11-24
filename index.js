@@ -1,20 +1,23 @@
 const { ApolloServer } = require('apollo-server');
 
-const { DataBase } = require('./datasources/database');
 const { RocketRepository } = require('./datasources/rockets');
-const typeDefs = require('./squema/global') ;
-const resolvers = require('./resolvers/resolvers') ;
+const { CommentRepository } = require('./datasources/comments');
 const SpacexAPI = require('./datasources/spacex');
 
-const spacexAPI = new SpacexAPI();
+const typeDefs = require('./squema/global') ;
+const resolvers = require('./resolvers/resolvers') ;
 
-const rocketsDB = new DataBase('./rockets.db');
-const rocketsRepository =  new RocketRepository(rocketsDB);
+function dataSources() {
+    const rocketsRepository = new RocketRepository();
+    const commentsRepository = new CommentRepository();
+    const spacexAPI = new SpacexAPI();
 
-const dataSources = () => ({
-    spacexAPI,
-    rocketsRepository
-});
+    return {
+        spacexAPI,
+        rocketsRepository,
+        commentsRepository,
+    }
+}
 
 const server = new ApolloServer({
     typeDefs,

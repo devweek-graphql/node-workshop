@@ -1,7 +1,10 @@
-const dateScalar = require('../scalars/date');
-
 const resolvers = {
-    Date: dateScalar,
+    Mutation: {
+        addComment: async (parent, {launch_id, comment}, { dataSources }, info) => {
+            const { id } = await dataSources.commentsRepository.create(launch_id, comment);
+            return dataSources.commentsRepository.getById(id);
+        },
+    },
     Query: {
         company: (parent, args, { dataSources }, info) => {
             return dataSources.spacexAPI.getCompanyInfo();
@@ -13,23 +16,31 @@ const resolvers = {
             return dataSources.rocketsRepository.getById(id);
         },
         launches: (parent, args, { dataSources }, info) => {
-            console.log('Resolver - Query.launches -');
             return dataSources.spacexAPI.getLaunches();
         },
         launch: (parent, {id}, { dataSources }, info) => {
             return dataSources.spacexAPI.getLaunchById(id);
         },
+        comments: (parent, { launch_id }, { dataSources }, info) => {
+            return dataSources.commentsRepository.getAllByLaunchId(launch_id);
+        },
     },
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {
-            console.log('Resolver - Launch.rocket -');
             return dataSources.rocketsRepository.getById(launch.rocket);
-        }
+        },
+        comments: (launch, args, { dataSources }, info) => {
+            return dataSources.commentsRepository.getAllByLaunchId(launch.id);
+        },
     },
     Rocket: {
         launches: async (rocket, args, { dataSources }, info) => {
-            console.log('Resolver - Rocket.launches -');
             return dataSources.spacexAPI.getLaunchesByRocketId(rocket.id);
+        }
+    },
+    Comment: {
+        launch: async (comment, args, { dataSources }, info) => {
+            return dataSources.spacexAPI.getLaunchById(comment.launch_id);
         }
     }
 }
