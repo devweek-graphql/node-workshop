@@ -1,8 +1,23 @@
 module.exports = `
+  type Mutation {
+    addComment(launch_id: ID!, comment: CommentInput!): Comment
+  }
 
-type Query {
+  type Query {
     launches: [Launch]
     launch(id: ID!): Launch
+    comments(launch_id: ID!): [Comment]
+  }
+
+  input CommentInput {
+    user_name: String!
+    message: String!
+  }
+
+  type Comment {
+    user_name: String!
+    message: String!
+    launch: Launch
   }
 
   type History {
@@ -25,6 +40,7 @@ type Query {
     is_tentative: Boolean
     upcoming: Boolean
     cores: [Core]
+    comments: [Comment]
   }
 
   type LaunchLinks {

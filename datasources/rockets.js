@@ -15,14 +15,12 @@ class RocketRepository {
 
     create(rocket) {
         const rocketStringified = JSON.stringify(rocket);
-        return this.rocketsDB.run(`
-            INSERT INTO rockets (id, rocket)
-            VALUES (?, ?)`,
-            [rocket.id, rocketStringified])
+        return this.rocketsDB.run(
+            `INSERT INTO rockets (id, rocket) VALUES (?, ?)`, [rocket.id, rocketStringified])
     }
 
     async getById(id) {
-        const result = await this.rocketsDB.get(`SELECT * FROM rockets WHERE id = ?`, [id]);
+        const result = await this.rocketsDB.get(`SELECT * FROM rockets WHERE id = ?`,[id]);
         return JSON.parse(result.rocket);
     }
 
@@ -32,11 +30,7 @@ class RocketRepository {
     }
 
     async getByIds(ids) {
-        const results = await this.rocketsDB.all(`
-            SELECT *
-            FROM rockets
-            WHERE id IN (${ids.map(id => '?').join(',')})`,
-            ids);
+        const results = await this.rocketsDB.all(`SELECT * FROM rockets WHERE id IN (${ids.map(id => '?').join(',')})`, ids);
         return results.map(dataset => JSON.parse(dataset.rocket));
     }
 }

@@ -7,19 +7,16 @@ class SpacexAPI extends RESTDataSource {
         this.baseURL = 'https://api.spacexdata.com/v4';
     }
 
-    async getCompanyInfo(){
-        const data = await this.get('/company');
-        return data;
+    getCompanyInfo(){
+        return this.get('/company');
     }
 
-    async getLaunches(){
-        const data = await this.get(`/launches`);
-        return data;
+    getLaunches(){
+        return this.get(`/launches`);
     }
 
-    async getLaunchById(id){
-        const data = await this.get(`/launches/${id}`);
-        return data;
+    getLaunchById(id){
+        return this.get(`/launches/${id}`);;
     }
 
     async getLaunchesByRocketId(id){

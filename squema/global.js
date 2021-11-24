@@ -5,7 +5,6 @@ const rocketTypes = require('./rocket');
 const launchTypes = require('./launch');
 
 module.exports = gql`
-
     ${commonTypes}
 
     ${companyTypes}
@@ -13,5 +12,4 @@ module.exports = gql`
     ${rocketTypes}
 
     ${launchTypes}
-
 `
