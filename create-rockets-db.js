@@ -1,4 +1,4 @@
-const { DAO, RocketRepository } = require('./datasources/rockets');
+const { RocketRepository } = require('./datasources/rockets');
 
 const dataRockets = [
     {
@@ -462,8 +462,7 @@ const dataRockets = [
 ];
 
 const main = async () => {
-    const dao = new DAO();
-    const rocketsRepository =  new RocketRepository(dao);
+    const rocketsRepository =  new RocketRepository();
     await rocketsRepository.createTable();
     dataRockets.forEach(rocket => rocketsRepository.create(rocket));
 }
