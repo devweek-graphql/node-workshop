@@ -1,4 +1,4 @@
-const { RocketRepository } = require('./datasources/rockets');
+const { RocketRepository } = require('../datasources/rockets');
 
 const dataRockets = [
     {
