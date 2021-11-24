@@ -36,7 +36,7 @@ module.exports = `
     date_unix: Int
     details: String
     links: LaunchLinks
-    rocket: Rocket
+    rocket: String
     is_tentative: Boolean
     upcoming: Boolean
     cores: [Core]
