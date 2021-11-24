@@ -1,5 +1,6 @@
-const { DataBase } = require('./database');
+const DataLoader = require("dataloader");
 
+const { DataBase } = require('./database');
 const { performanceLogger } = require('../utils/performanceLogger');
 
 class RocketRepository {
@@ -37,7 +38,7 @@ class RocketRepository {
     async getByIds(ids) {
         const results = await performanceLogger(() =>
             this.rocketsDB.all(`SELECT * FROM rockets WHERE id IN (${ids.map(() => '?').join(',')})`, ids),
-            `SELECT * FROM rockets WHERE id IN (${ids.map(() => 'id').join(',')})`
+            `SELECT * FROM rockets WHERE id IN (${ids.map(id => id).join(',')})`
         );
         return results.map(dataset => JSON.parse(dataset.rocket));
     }
