@@ -1,5 +1,3 @@
-const DataLoader = require("dataloader");
-
 const { DataBase } = require('./database');
 const { performanceLogger } = require('../utils/performanceLogger');
 
