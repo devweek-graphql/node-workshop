@@ -27,7 +27,7 @@ const resolvers = {
     },
     Launch: {
         rocket: (launch, args, { dataSources }, info) => {
-            return dataSources.rocketsRepository.getById(launch.rocket);
+            return dataSources.loaders.rockets.load(launch.rocket);
         },
         comments: (launch, args, { dataSources }, info) => {
             return dataSources.commentsRepository.getAllByLaunchId(launch.id);
@@ -35,7 +35,7 @@ const resolvers = {
     },
     Rocket: {
         launches: async (rocket, args, { dataSources }, info) => {
-            return dataSources.spacexAPI.getLaunchesByRocketId(rocket.id);
+            return dataSources.loaders.lauchesByRocket.load(rocket.id);
         }
     },
     Comment: {

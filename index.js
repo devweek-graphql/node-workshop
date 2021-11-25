@@ -2,6 +2,7 @@ const { ApolloServer } = require('apollo-server');
 
 const { RocketRepository } = require('./datasources/rockets');
 const { CommentRepository } = require('./datasources/comments');
+const { rocketsLoader, launchesByRocketLoader } = require('./datasources/loaders');
 const SpacexAPI = require('./datasources/spacex');
 
 const typeDefs = require('./schema/global') ;
@@ -16,6 +17,10 @@ function dataSources() {
         spacexAPI,
         rocketsRepository,
         commentsRepository,
+        loaders : {
+            rockets: rocketsLoader(rocketsRepository),
+            lauchesByRocket: launchesByRocketLoader(spacexAPI),
+        }
     }
 }
 
